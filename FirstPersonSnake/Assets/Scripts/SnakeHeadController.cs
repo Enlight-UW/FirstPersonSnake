@@ -11,14 +11,16 @@ public class SnakeHeadController : MonoBehaviour {
 	private Vector3 movement;
     
     public GameObject snakePiece;
+    public GameObject food;
     public GameObject snakeHead;
     public Text loseText;
     public Text movementDirection;
+    public Text scoreText;
     private GameObject lastMadePiece;
     private int score;
     private CharacterController characterController;
     private Rigidbody rb;
-    private Vector3[] leaderPositions = new Vector3[30];
+    private Vector3[] leaderPositions = new Vector3[300];
 
     private Vector3 offset = new Vector3(0, 0, -2);
     public static ArrayList snakePieces = new ArrayList();
@@ -31,72 +33,15 @@ public class SnakeHeadController : MonoBehaviour {
         movementDirection.text = "Forward!";
         snakePieces.Add(snakePiece);
         loseText.text = "";
+        scoreText.text = "Score: 0";
         score = 0;
     }
 
-	void FixedUpdate()
-    {
-		//Controller for key input. Locks to cardinal directions which are enumerated as Vector3 variable fields
-        if (Input.GetKeyDown("right"))
-        {
-			if (movement == forward)
-			{
-				movement = right;
-                movementDirection.text = "Right";
-			}
-			else if (movement == backward)
-			{
-				movement = left;
-                movementDirection.text = "Left";
-            }
-			else if (movement == left)
-			{
-				movement = forward;
-                movementDirection.text = "Forward";
-            }
-			else if (movement == right)
-			{
-				movement = backward;
-                movementDirection.text = "Backward";
-            }
-        }
-        else if (Input.GetKeyDown("left"))
-        {
-			if (movement == forward)
-			{
-				movement = left;
-                movementDirection.text = "Left";
-            }
-			else if (movement == backward)
-			{
-				movement = right;
-                movementDirection.text = "Right";
-            }
-			else if (movement == left)
-			{
-				movement = backward;
-                movementDirection.text = "Backward";
-            }
-			else if (movement == right)
-			{
-				movement = forward;
-                movementDirection.text = "Forward";
-            }
-        }
-        /*
-		else if(movement != forward && movement != backward && movement != right && movement != left) {
-			movement = forward;
-		}
-        */
-        transform.Translate(movement * speed);
-        
-
-
-    }
+	
     void Update()
     {
         //Populates the last leader positions for the past 30 frames.
-		Vector3[] newVector = new Vector3[30];
+		Vector3[] newVector = new Vector3[300];
         for (int i = leaderPositions.Length - 1; i > 0; i--)
         {
             newVector[i] = leaderPositions[i - 1];
@@ -107,6 +52,59 @@ public class SnakeHeadController : MonoBehaviour {
 			newVector[i].y = 0.75f;
 		}*/
 		leaderPositions = newVector;
+        if (Input.GetKeyDown("right"))
+        {
+            if (movement.Equals(forward))
+            {
+                movement = right;
+                movementDirection.text = "Right";
+            }
+            else if (movement.Equals(backward))
+            {
+                movement = left;
+                movementDirection.text = "Left";
+            }
+            else if (movement.Equals(left))
+            {
+                movement = forward;
+                movementDirection.text = "Forward";
+            }
+            else if (movement.Equals(right))
+            {
+                movement = backward;
+                movementDirection.text = "Backward";
+            }
+        }
+        else if (Input.GetKeyDown("left"))
+        {
+            if (movement.Equals(forward))
+            {
+                movement = left;
+                movementDirection.text = "Left";
+            }
+            else if (movement.Equals(backward))
+            {
+                movement = right;
+                movementDirection.text = "Right";
+            }
+            else if (movement.Equals(left))
+            {
+                movement = backward;
+                movementDirection.text = "Backward";
+            }
+            else if (movement.Equals(right))
+            {
+                movement = forward;
+                movementDirection.text = "Forward";
+            }
+        }
+        /*
+		else if(movement != forward && movement != backward && movement != right && movement != left) {
+			movement = forward;
+		}
+        */
+        transform.Translate(movement * speed);
+
     }
 
     void OnTriggerEnter(Collider other)
@@ -119,7 +117,10 @@ public class SnakeHeadController : MonoBehaviour {
             
             other.gameObject.SetActive(false);
             snakePieces.Add((GameObject)Instantiate(snakePiece,  new Vector3(0,0.5f,-2.0f), new Quaternion(0,0,0,0)));
+        
             score++;
+            scoreText.text = "Score: " + score;
+            Instantiate(food, new Vector3(Random.value * 99, 1.1f, Random.value * 99), new Quaternion(0, 0, 0, 0));
         }
         if (other.gameObject.CompareTag("Wall"))
         {
@@ -128,7 +129,7 @@ public class SnakeHeadController : MonoBehaviour {
             snakeHead.SetActive(false);
 
         }
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("SnakePiece"))
         {
             loseText.text = "Unintended Collision!!!!!";
         }
@@ -149,7 +150,7 @@ public class SnakeHeadController : MonoBehaviour {
             else
             {
                 GameObject piece = (GameObject)snakePieces[i];
-                piece.transform.position = leaderPositions[i + 8];
+                piece.transform.position = leaderPositions[3 +3*i];
 
             }
         }
