@@ -25,6 +25,10 @@ public class SnakeHeadController : MonoBehaviour {
     private Vector3 offset = new Vector3(0, 0, -2);
     public static ArrayList snakePieces = new ArrayList();
 
+    //Cardboard Variables
+    private Vector3 pos = Cardboard.SDK.HeadPose.Position;
+    private Vector3 direction = new Vector3(1,0,0);
+
 
     void Start()
     {
@@ -54,7 +58,8 @@ public class SnakeHeadController : MonoBehaviour {
 		leaderPositions = newVector;
 
         //So this is the previous movement thing.
-        /*if (Input.GetKeyDown("right"))
+        
+        if (Input.GetKeyDown("right"))
         {
             if (movement.Equals(forward))
             {
@@ -99,13 +104,15 @@ public class SnakeHeadController : MonoBehaviour {
                 movement = forward;
                 movementDirection.text = "Forward";
             }
-        }d
+        }
+        transform.Translate(movement * speed);
+        
+        /*
+        direction = new Vector3(pos.x, 0, pos.z);
+
+        
+        transform.Translate( direction * speed);
         */
-
-
-
-        transform.Translate(Input.gyro.userAcceleration * speed);
-
     }
 
     void OnTriggerEnter(Collider other)
@@ -142,17 +149,20 @@ public class SnakeHeadController : MonoBehaviour {
         //Follower 
         for (int i = 0; i < snakePieces.Count; i++)
         {
-            if (i == 0)
+            if (Time.time >= 1)
             {
-                GameObject piece = (GameObject)snakePieces[i];
-                piece.transform.position = leaderPositions[3];
+                if (i == 0)
+                {
+                    GameObject piece = (GameObject)snakePieces[i];
+                    piece.transform.position = leaderPositions[3];
 
-            }
-            else
-            {
-                GameObject piece = (GameObject)snakePieces[i];
-                piece.transform.position = leaderPositions[3 +3*i];
+                }
+                else
+                {
+                    GameObject piece = (GameObject)snakePieces[i];
+                    piece.transform.position = leaderPositions[3 + 3 * i];
 
+                }
             }
         }
         
