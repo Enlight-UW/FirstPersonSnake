@@ -112,9 +112,9 @@ public class SnakeHeadController : MonoBehaviour {
         transform.Translate(movement * speed);
         */
         direction = target.transform.position;
-        movement2 = Vector3.Lerp(movement, direction, 0.5f);
+        movement = Vector3.Lerp(snakeHead.transform.position, direction, 0.5f);
 
-        transform.Translate(movement2);
+        transform.Translate(movement);
         loseText.text = "" + direction;
         
     }
