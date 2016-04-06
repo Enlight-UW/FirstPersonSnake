@@ -65,6 +65,7 @@ public class CardboardHead : MonoBehaviour {
   /// during `Update()` by setting this to true.
   public bool updateEarly = false;
 
+
   /// Returns a ray based on the heads position and forward direction, after making
   /// sure the transform is up to date.  Use to raycast into the scene to determine
   /// objects that the user is looking at.
