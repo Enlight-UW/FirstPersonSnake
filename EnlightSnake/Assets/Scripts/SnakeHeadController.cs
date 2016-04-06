@@ -17,6 +17,7 @@ public class SnakeHeadController : MonoBehaviour {
     public Text loseText;
     public Text movementDirection;
     public Text scoreText;
+    public Transform spawn;
     private GameObject lastMadePiece;
     private int score;
     private CharacterController characterController;
@@ -112,7 +113,7 @@ public class SnakeHeadController : MonoBehaviour {
         transform.Translate(movement * speed);
         */
         direction = target.transform.position;
-        movement = Vector3.Lerp(snakeHead.transform.position, direction, 0.5f);
+        movement = spawn.transform.rotation.eulerAngles;
 
         transform.Translate(movement);
         loseText.text = "Target is: " + direction;
