@@ -7,7 +7,7 @@ public class SceneSwitcher : MonoBehaviour {
 
 	void Update()
     {
-        if (Input.anyKeyDown)
+        if (Input.anyKeyDown || Cardboard.SDK.Triggered)
         {
             EditorSceneManager.LoadScene(1);
         }
