@@ -91,6 +91,20 @@ public class CardboardHead : MonoBehaviour {
     if (updateEarly) {
       UpdateHead();
     }
+
+    //Going from menu to game
+    if(Cardboard.SDK.Triggered)
+        {
+            print("screen tapped");
+            //switch scene from menu to game
+            if(UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene().Equals(UnityEditor.SceneManagement.EditorSceneManager.GetSceneByName("menu")))
+            {
+                //close menu
+                //UnityEditor.SceneManagement.EditorSceneManager.UnloadScene(UnityEditor.SceneManagement.EditorSceneManager.GetSceneByName("menu").buildIndex);
+                //set new scene
+                UnityEngine.SceneManagement.SceneManager.LoadScene("_Scenes/snakeGame");
+            }
+        }
   }
 
   // Normally, update head pose now.
