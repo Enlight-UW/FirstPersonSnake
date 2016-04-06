@@ -112,11 +112,14 @@ public class SnakeHeadController : MonoBehaviour {
         }
         transform.Translate(movement * speed);
         */
-        direction = target.transform.position;
-        movement = spawn.transform.rotation.eulerAngles;
+        //direction = target.transform.position;
+        movement = spawn.transform.forward;
+        movement.y = 0;
+        movement = movement.normalized;
+        //snakeHead.transform.Rotate(new Vector3(1, 1, 1));
 
-        transform.Translate(movement);
-        loseText.text = "Target is: " + direction;
+        transform.Translate(movement * speed);
+        loseText.text = "Movement is " + movement;
         
     }
 
