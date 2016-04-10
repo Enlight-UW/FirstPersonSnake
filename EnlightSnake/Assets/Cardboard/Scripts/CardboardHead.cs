@@ -97,7 +97,7 @@ public class CardboardHead : MonoBehaviour {
         {
             print("screen tapped");
             //switch scene from menu to game
-            if(UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene().Equals(UnityEditor.SceneManagement.EditorSceneManager.GetSceneByName("menu")))
+            if(UnityEngine.SceneManagement.SceneManager.GetActiveScene().Equals(UnityEngine.SceneManagement.SceneManager.GetSceneByName("menu")))
             {
                 //close menu
                 //UnityEditor.SceneManagement.EditorSceneManager.UnloadScene(UnityEditor.SceneManagement.EditorSceneManager.GetSceneByName("menu").buildIndex);

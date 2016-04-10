@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
 
 public class SnakeHeadController : MonoBehaviour {
     public float speed;
@@ -128,9 +128,6 @@ public class SnakeHeadController : MonoBehaviour {
     {
 
         string type = other.ToString();
-        string errorMes = "Collided with " +  type;
-        Debug.LogError(errorMes);
-        System.Console.WriteLine("Collided wiyh {0}", type);
         if (other.gameObject.CompareTag("Food"))
         {
             
@@ -143,15 +140,14 @@ public class SnakeHeadController : MonoBehaviour {
         }
         if (other.gameObject.CompareTag("Wall"))
         {
-            errorMes = "Collided with wall";
-            Debug.LogError(errorMes);
             loseText.text = "You Died.... Great job bro";
-            EditorSceneManager.LoadScene(1);
-            //snakeHead.SetActive(false);
+            SceneManager.LoadScene(0);
+            snakeHead.SetActive(false);
 
         }
         if (other.gameObject.CompareTag("SnakePiece"))
         {
+            //EditorSceneManager.LoadScene(0);
             //loseText.text = "Unintended Collision!!!!!";
         }
 		 

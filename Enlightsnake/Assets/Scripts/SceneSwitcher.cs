@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEditor;
-using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
 
 public class SceneSwitcher : MonoBehaviour {
 
@@ -9,7 +8,7 @@ public class SceneSwitcher : MonoBehaviour {
     {
         if (Input.anyKeyDown || Cardboard.SDK.Triggered)
         {
-            EditorSceneManager.LoadScene(1);
+            SceneManager.LoadScene(1);
         }
         
     }
