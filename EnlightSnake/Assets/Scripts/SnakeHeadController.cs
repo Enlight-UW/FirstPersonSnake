@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class SnakeHeadController : MonoBehaviour {
     public float speed;
-    private Vector3 forward = new Vector3(0.1f,0,0.1f);
+    private Vector3 forward = new Vector3(0,0,0.1f);
 	private Vector3 backward = new Vector3(0,0,-1);
 	private Vector3 left = new Vector3(-1,0,0);
 	private Vector3 right = new Vector3(1,0,0);
@@ -42,7 +42,7 @@ public class SnakeHeadController : MonoBehaviour {
         scoreText.text = "Score: 0";
         score = 0;
 
-        target = fancyCamera.target;
+        //target = fancyCamera.target;
     }
 
 	
@@ -113,12 +113,14 @@ public class SnakeHeadController : MonoBehaviour {
         */
         //direction = target.transform.position;
         // movement = Vector3.Lerp(snakeHead.transform.position, direction, 0.5f);
-        
+
         //change the x and z direction based on head poses
-        movement.x = Cardboard.SDK.HeadPose.RightHandedMatrix.MultiplyVector(forward).x;
-        movement.z = Cardboard.SDK.HeadPose.RightHandedMatrix.MultiplyVector(forward).z;
-        print(Cardboard.SDK.HeadPose.RightHandedMatrix.MultiplyVector(forward).x.ToString());
-        
+        movement.x = Cardboard.SDK.HeadPose.RightHandedMatrix.MultiplyVector(forward).x * 10;
+        movement.z = Cardboard.SDK.HeadPose.RightHandedMatrix.MultiplyVector(forward).z * -10;
+        print(movement.z.ToString());
+       // movement = pos;
+
+
         transform.Translate(movement);
         loseText.text = "Target is: " + direction;
         
