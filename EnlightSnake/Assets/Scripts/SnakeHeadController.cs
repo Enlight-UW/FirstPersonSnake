@@ -28,7 +28,7 @@ public class SnakeHeadController : MonoBehaviour {
     private Vector3 direction;
 
     private Vector3 offset = new Vector3(0, 0, -2);
-    public static ArrayList snakePieces = new ArrayList();
+    public ArrayList snakePieces = new ArrayList();
 
     //Cardboard Variables
     private Vector3 pos = Cardboard.SDK.HeadPose.Position;
@@ -124,56 +124,6 @@ public class SnakeHeadController : MonoBehaviour {
         
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-
-        string type = other.ToString();
-        if (other.gameObject.CompareTag("Food"))
-        {
-            
-            other.gameObject.SetActive(false);
-            snakePieces.Add((GameObject)Instantiate(snakePiece,  new Vector3(0,0.5f,-2.0f), new Quaternion(0,0,0,0)));
-        
-            score++;
-            scoreText.text = "Score: " + score;
-            Instantiate(food, new Vector3(Random.value * 99, 1.1f, Random.value * 99), new Quaternion(0, 0, 0, 0));
-        }
-        if (other.gameObject.CompareTag("Wall"))
-        {
-            loseText.text = "You Died.... Great job bro";
-            SceneManager.LoadScene(0);
-            snakeHead.SetActive(false);
-
-        }
-        if (other.gameObject.CompareTag("SnakePiece"))
-        {
-            //EditorSceneManager.LoadScene(0);
-            //loseText.text = "Unintended Collision!!!!!";
-        }
-		 
-        
-    }
-    void LateUpdate()
-    {
-        //Follower 
-        for (int i = 0; i < snakePieces.Count; i++)
-        {
-            if (Time.time >= 1)
-            {
-                if (i == 0)
-                {
-                    GameObject piece = (GameObject)snakePieces[i];
-                    piece.transform.position = leaderPositions[3];
-
-                }
-                else
-                {
-                    GameObject piece = (GameObject)snakePieces[i];
-                    piece.transform.position = leaderPositions[3 + 3 * i];
-
-                }
-            }
-        }
-        
-    }
+    
+    
 }
