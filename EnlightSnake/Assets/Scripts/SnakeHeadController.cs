@@ -119,7 +119,9 @@ public class SnakeHeadController : MonoBehaviour {
         movement = movement.normalized;
         //snakeHead.transform.Rotate(new Vector3(1, 1, 1));
 
-        transform.Translate(movement * speed);
+        float dt = Time.deltaTime;
+
+        transform.Translate(movement * speed * dt);
         loseText.text = "Movement is " + movement;
         
     }

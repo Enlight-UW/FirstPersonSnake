@@ -48,7 +48,7 @@ public class CollisionController : MonoBehaviour {
 
             score++;
             scoreText.text = "Score: " + score;
-            Instantiate(food, new Vector3(Random.value * 99, 1.1f, Random.value * 99), new Quaternion(0, 0, 0, 0));
+            Instantiate(food, new Vector3(Random.value * 98, 1.1f, Random.value * 98), new Quaternion(0, 0, 0, 0));
         }
         if (other.gameObject.CompareTag("Wall"))
         {
