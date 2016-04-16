@@ -57,11 +57,11 @@ public class CollisionController : MonoBehaviour {
         {
 
             other.gameObject.SetActive(false);
-            GameObject.Find("/Pickup_Coin").GetComponent<AudioSource>().Play();
+            GameObject.Find("/Meow").GetComponent<AudioSource>().Play();
             addSnakePiece();
             score++;
             scoreText.text = "Score: " + score;
-            Instantiate(food, new Vector3((Random.value - .5f) * 2 * 98, 1.1f, (Random.value - .5f) * 2 * 98), new Quaternion(0, 0, 0, 0));
+            Instantiate(food, new Vector3((Random.value - .5f) * 2 * 98, 0.0f, (Random.value - .5f) * 2 * 98), new Quaternion(0, 0, 0, 0));
             
         }
         if (other.gameObject.CompareTag("Wall"))
