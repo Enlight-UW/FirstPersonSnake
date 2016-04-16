@@ -45,7 +45,9 @@ public class CollisionController : MonoBehaviour {
 
             other.gameObject.SetActive(false);
             snakePieces.Add((GameObject)Instantiate(snakePiece, new Vector3(0, 0.5f, -2.0f), new Quaternion(0, 0, 0, 0)));
-
+            snakePieces.Add((GameObject)Instantiate(snakePiece, new Vector3(0, 0.5f, -2.0f), new Quaternion(0, 0, 0, 0)));
+            snakePieces.Add((GameObject)Instantiate(snakePiece, new Vector3(0, 0.5f, -2.0f), new Quaternion(0, 0, 0, 0)));
+            GameObject.Find("/Pickup_Coin").GetComponent<AudioSource>().Play();
             score++;
             scoreText.text = "Score: " + score;
             Instantiate(food, new Vector3(Random.value * 98, 1.1f, Random.value * 98), new Quaternion(0, 0, 0, 0));
@@ -53,6 +55,7 @@ public class CollisionController : MonoBehaviour {
         if (other.gameObject.CompareTag("Wall"))
         {
             loseText.text = "You Died.... Great job bro";
+            GameObject.Find("/Explosion").GetComponent<AudioSource>().Play();
             SceneManager.LoadScene(0);
             snakeHead.SetActive(false);
 
