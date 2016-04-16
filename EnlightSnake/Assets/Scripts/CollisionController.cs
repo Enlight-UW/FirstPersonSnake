@@ -10,30 +10,43 @@ public class CollisionController : MonoBehaviour {
     public Text loseText;
     public GameObject snakePiece;
     public GameObject snakeHead;
-    private Vector3[] leaderPositions = new Vector3[300];
+    private Vector3[] leaderPositions = new Vector3[1500];
     public ArrayList snakePieces = new ArrayList();
 
     // Use this for initialization
     void Start () {
         snakePieces.Add(snakePiece);
         score = 0;
+        // zero out our array to start
+        for (int i = 0; i < leaderPositions.Length; i++)
+        {
+            leaderPositions[i] = new Vector3(0, 0, 0);
+        }
+        for (int i = 0; i < 90; i++)
+        {
+            //addSnakePiece();
+        }
     }
 	
 	// Update is called once per frame
 	void Update () {
         //Populates the last leader positions for the past 30 frames.
-        Vector3[] newVector = new Vector3[300];
-        for (int i = leaderPositions.Length - 1; i > 0; i--)
+        Vector3 temp = leaderPositions[0];
+        Vector3 otherTemp = temp;
+        for (int i = 1; i < leaderPositions.Length; i++)
         {
-            newVector[i] = leaderPositions[i - 1];
+
+            otherTemp = leaderPositions[i];
+            leaderPositions[i] = temp;
+            temp = otherTemp;
         }
-        newVector[0] = snakeHead.transform.position;
+        
+        leaderPositions[0] = snakeHead.transform.position;
         //This part is the part that is throwing errors
         /*for(int i = 0; i < leaderPositions.Length; i++) {
 			newVector[i].y = 0.75f;
 		}*/
         
-        leaderPositions = newVector;
     }
 
     void OnTriggerEnter(Collider other)
@@ -44,13 +57,12 @@ public class CollisionController : MonoBehaviour {
         {
 
             other.gameObject.SetActive(false);
-            snakePieces.Add((GameObject)Instantiate(snakePiece, new Vector3(0, 0.5f, -2.0f), new Quaternion(0, 0, 0, 0)));
-            snakePieces.Add((GameObject)Instantiate(snakePiece, new Vector3(0, 0.5f, -2.0f), new Quaternion(0, 0, 0, 0)));
-            snakePieces.Add((GameObject)Instantiate(snakePiece, new Vector3(0, 0.5f, -2.0f), new Quaternion(0, 0, 0, 0)));
             GameObject.Find("/Pickup_Coin").GetComponent<AudioSource>().Play();
+            addSnakePiece();
             score++;
             scoreText.text = "Score: " + score;
-            Instantiate(food, new Vector3(Random.value * 98, 1.1f, Random.value * 98), new Quaternion(0, 0, 0, 0));
+            Instantiate(food, new Vector3((Random.value - .5f) * 2 * 98, 1.1f, (Random.value - .5f) * 2 * 98), new Quaternion(0, 0, 0, 0));
+            
         }
         if (other.gameObject.CompareTag("Wall"))
         {
@@ -91,5 +103,14 @@ public class CollisionController : MonoBehaviour {
             }
         }
 
+    }
+
+    void addSnakePiece()
+    {
+        snakePieces.Add((GameObject)Instantiate(snakePiece, new Vector3(0, 0.5f, -2.0f), new Quaternion(0, 0, 0, 0)));
+        snakePieces.Add((GameObject)Instantiate(snakePiece, new Vector3(0, 0.5f, -2.0f), new Quaternion(0, 0, 0, 0)));
+        snakePieces.Add((GameObject)Instantiate(snakePiece, new Vector3(0, 0.5f, -2.0f), new Quaternion(0, 0, 0, 0)));
+        
+        
     }
 }
